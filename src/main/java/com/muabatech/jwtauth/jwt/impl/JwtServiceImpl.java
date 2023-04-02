@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtServiceImpl implements JwtService {
 	//private final JwtConfig jwtConfig;
-	private static final String SECRET_KEY = "782F413F4428472B4B6250655367566B5970337336763979244226452948404D";
+	private static final String SECRET_KEY = "4E635266556A586E3272357538782F413F4428472B4B6250655367566B597033";
 	private final UserDetailsService userDetailsService;
 	@Override
 	public Claims extractClaims(String token) {

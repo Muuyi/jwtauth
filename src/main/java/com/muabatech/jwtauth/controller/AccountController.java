@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AccountController {
 	private final UserService userService;
+	//https://www.youtube.com/watch?v=WwtNNbxZsUU&ab_channel=self-code
 	
 	@PostMapping("/register")
 	public ResponseEntity<BaseResponseDTO> register(@RequestBody UserDTO userDTO){

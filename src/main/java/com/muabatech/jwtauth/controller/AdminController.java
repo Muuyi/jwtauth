@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+	//https://www.youtube.com/watch?v=WwtNNbxZsUU&ab_channel=self-code
 	@GetMapping("/index")
 	public ResponseEntity<String> index(Principal principal){
 		return ResponseEntity.ok("Welcome to admin page : "+principal.getName());

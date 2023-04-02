@@ -11,9 +11,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.muabatech.jwtauth.config.filter.CustomAuthenticationProvider;
+import com.muabatech.jwtauth.config.filter.JwtTokenAuthenticationFilter;
+import com.muabatech.jwtauth.config.filter.JwtUsernamePasswordAuthenticationFilter;
 import com.muabatech.jwtauth.exception.CustomAccessDeniedHandler;
+import com.muabatech.jwtauth.jwt.JwtConfig;
+import com.muabatech.jwtauth.jwt.JwtService;
 import com.muabatech.jwtauth.service.security.UserDetailsServiceCustom;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +28,16 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AppConfig {
 	@Autowired
 	private CustomAuthenticationProvider customAuthenticationProvider;
+	@Autowired
+	JwtConfig jwtConfig;
+	
+	@Autowired
+	private JwtService jwtService;
+	
+	@Bean
+	public JwtConfig jwtConfig() {
+		return new JwtConfig();
+	}
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -64,8 +79,8 @@ public class AppConfig {
 					((request,response,authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
 			.accessDeniedHandler(new CustomAccessDeniedHandler())
 			.and()
-			.addFilterBefore()
-			.addFilterAfter();
+			.addFilterBefore(new JwtUsernamePasswordAuthenticationFilter(manager,jwtConfig,jwtService),UsernamePasswordAuthenticationFilter.class)
+			.addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig,jwtService),UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 }
