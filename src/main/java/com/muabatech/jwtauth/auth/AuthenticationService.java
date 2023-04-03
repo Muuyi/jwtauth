@@ -1,5 +1,7 @@
 package com.muabatech.jwtauth.auth;
 
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,6 +58,9 @@ public class AuthenticationService {
 //		}catch(Exception e) {
 //			throw new RequestException(e.getMessage());
 //		}
+	}
+	public List<User>getAllUsers(){
+		return userRepository.findAll();
 	}
 
 }

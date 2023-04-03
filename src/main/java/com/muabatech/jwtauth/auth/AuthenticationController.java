@@ -1,12 +1,16 @@
 package com.muabatech.jwtauth.auth;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.muabatech.jwtauth.user.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +32,7 @@ public class AuthenticationController {
 	public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
 		return ResponseEntity.ok(authService.authenticate(request));
 	}
+	
 //	@PostMapping("/refresh")
 //	public ResponseEntity<RefreshResponse> refresh(@RequestBody RefreshPayload request){
 ////		ServerResponse serverResponse = new ServerResponse();
